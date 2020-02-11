@@ -1,0 +1,110 @@
+#include <iostream>
+#include <stdlib.h>//ISERISCO LA LIBRERIA PER IL RANDOMIZE
+using namespace std;
+void inizializzatris(char m[3][3]);//DICHIARO LA FUNZIONE inizializzatris
+void stampatris(char m[3][3]);//DICHIARO LA FUNZIONE stampatris
+bool inseriscisimbolo(int riga, int colonna, char simbolo, char m[3][3]);//DICHIARO LA
+FUNZIONE inseriscisimbolo
+void giocaplayer(char m[3][3], char simbolo);//DICHIARO LA FUNZIONE giocapc
+bool sevinto(char m[3][3], char simbolo);//DICHIARO LA FUNZIONE sevinto
+int main()
+{
+char m[3][3];// DICHIARO LA MIA MATRICE
+int riga, colonna;
+bool s=0;// DICHIARO IL simbolo
+bool win=0;//DiCHIARO LA vittoria
+char s1='x';//Dichiaro simbolo X
+char s2='o';//Dichiaro il simbolo O
+inizializzatris(m);//USO LA FUNZIONE inizializzatris
+bool vinto=false;
+for(int r=0;r<9&&!win;r++){
+stampatris(m);
+cout<<"Inserisci la riga nella quale posizionare il simbolo"<<endl;//Chiedo all'utente in che
+riga inserire il segno
+cin>>riga;//Prendo in input la riga
+cout<<"Inserisci la colonna nella quale posizionare il tuo simbolo"<<endl;//Chiedo
+all'utente in che colonna inserire il segno
+cin>>colonna;//Prendo in input la colonna
+s=inseriscisimbolo(riga,colonna,s1,m);
+if(s){
+cout<<"Il simbolo e' nella posizione giusta"<<endl;
+}
+else{
+cout<<"La posizione e' gia' occupata riprova"<<endl;
+cout<<"Inserisci la riga nella quale posizionare il simbolo"<<endl;
+cin>>riga;
+cout<<"Inserisci la colonna nella quale posizionare il tuo simbolo"<<endl;
+cin>>colonna;
+s=inseriscisimbolo(riga,colonna,s1,m);
+}
+giocaplayer(m,s2);
+win=sevinto(m,s1);
+if(win)
+cout<<"hai vinto"<<endl;
+else
+cout<<"hai perso"<<endl;
+}
+return 0;
+}
+void inizializzatris(char m[3][3]){//USO LA FUNZIONE inizializzatris
+for(int r=0;r<3;r++){
+for(int c=0;c<3;c++){
+m[r][c]=' ';
+}
+}
+}
+void stampatris(char m[3][3]){//USO LA FUNZIONE stampatris
+for (int r=0;r<3;r++){
+for(int c=0;c<3;c++){
+cout<<m[r][c];
+cout<<" | ";
+}
+cout<<endl<<"-----------"<<endl;
+}
+}
+bool inseriscisimbolo(int riga, int colonna, char simbolo, char m[3][3]){//USO LA FUNZIONE
+inseriscisimbolo
+if(m[riga][colonna]!=' ')
+return false;
+m[riga][colonna]=simbolo;
+return true;
+}
+void giocaplayer(char m[3][3], char simbolo){//USO LA FUNZIONE giocaplayer
+int righe=0;
+int colonne=0;
+srand(time(NULL));
+do{
+righe=rand()%3;
+colonne=rand()%3;}
+while (m[righe][colonne]!=' ');
+m[righe][colonne]=simbolo;
+}
+bool sevinto(char m[3][3], char simbolo){//USO LA FUNZIONE sevinto
+if((m[0][0]==simbolo)&&(m[0][1]==simbolo)&&(m[0][2]==simbolo)){
+return true;
+}
+else if((m[1][0]==simbolo)&&(m[1][1]==simbolo)&&(m[1][2]==simbolo)){
+return true;
+}
+else if((m[2][0]==simbolo)&&(m[2][1]==simbolo)&&(m[2][2]==simbolo)){
+return true;
+}
+else if((m[0][0]==simbolo)&&(m[1][0]==simbolo)&&(m[2][0]==simbolo)){
+return true;
+}
+else if((m[0][1]==simbolo)&&(m[1][1]==simbolo)&&(m[2][1]==simbolo)){
+return true;
+}
+else if((m[0][2]==simbolo)&&(m[1][2]==simbolo)&&(m[2][2]==simbolo)){
+return true;
+}
+else if((m[0][0]==simbolo)&&(m[1][1]==simbolo)&&(m[2][2]==simbolo)){
+return true;
+}
+else if((m[0][2]==simbolo)&&(m[1][1]==simbolo)&&(m[2][0]==simbolo)){
+return true;
+}
+else{
+return false;
+}
+}
