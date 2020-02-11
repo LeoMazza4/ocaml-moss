@@ -1,0 +1,111 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+void inizializzatris(char m[3][3]);
+void stampatris(char m[3][3]);
+bool inseriscisegno(int riga, int colonna, char segno, char m[3][3]);
+void giocapc(char m[3][3], char segno);
+bool sevinto(char m[3][3], char segno);
+int main()
+{
+    char m[3][3];
+    int riga, colonna;
+    bool s=0;
+    bool win=0;
+    char s1='x';
+    char s2='o';
+    inizializzatris(m);
+    bool vinto=false;
+    for(int r=0;r<9&&!win;r++){
+    stampatris(m);    
+    cout<<"inserisci la riga dove vuoi inserire il tuo segno"<<endl;
+    cin>>riga;
+    cout<<"inserisci la colonna dove vuoi inserire il tuo segno"<<endl;
+    cin>>colonna;
+    s=inseriscisegno(riga,colonna,s1,m);
+    
+    if(s){
+    cout<<"hai inserito il segno in posizione corretta"<<endl;
+    }
+    else{
+    cout<<"la posizione dove vuoi inserire il segno è gia occupata"<<endl;
+    cout<<"inserisci la riga dove vuoi inserire il tuo segno"<<endl;
+    cin>>riga;
+    cout<<"inserisci la colonna dove vuoi inserire il tuo segno"<<endl;
+    cin>>colonna;
+    s=inseriscisegno(riga,colonna,s1,m);
+    }
+    
+    giocapc(m,s2);
+    win=sevinto(m,s1);
+    if(win)
+    cout<<"hai vinto"<<endl;
+    else
+    cout<<"non hai vinto"<<endl;
+        
+        
+    }
+
+    return 0;
+}
+void inizializzatris(char m[3][3]){
+    for(int r=0;r<3;r++){
+       for(int c=0;c<3;c++){
+           m[r][c]=' ';
+       }
+    }
+}
+void stampatris(char m[3][3]){
+    for (int r=0;r<3;r++){
+        for(int c=0;c<3;c++){
+            cout<<m[r][c];
+            cout<<" | ";
+        }
+        cout<<endl<<"-----------"<<endl;
+    }
+    
+
+    
+}
+bool inseriscisegno(int riga, int colonna, char segno, char m[3][3]){
+           if(m[riga][colonna]!=' ')
+
+               return false;
+             m[riga][colonna]=segno;
+               return true;
+}
+
+void giocapc(char m[3][3], char segno){
+   int r=0;
+   int c=0;
+    srand(time(NULL));
+    do{
+           r=rand()%3;
+           c=rand()%3;}
+        while (m[r][c]!=' ');
+           m[r][c]=segno;
+       }
+    
+    
+
+bool sevinto(char m[3][3], char segno){
+    if((m[0][0]==segno)&&(m[0][1]==segno)&&(m[0][2]==segno))
+    return true;
+    else if((m[1][0]==segno)&&(m[1][1]==segno)&&(m[1][2]==segno))
+    return true;
+    else if((m[2][0]==segno)&&(m[2][1]==segno)&&(m[2][2]==segno))
+    return true;
+    else if((m[0][0]==segno)&&(m[1][0]==segno)&&(m[2][0]==segno))
+    return true;
+    else if((m[0][1]==segno)&&(m[1][1]==segno)&&(m[2][1]==segno))
+    return true;
+    else if((m[0][2]==segno)&&(m[1][2]==segno)&&(m[2][2]==segno))
+    return true;
+    else if((m[0][0]==segno)&&(m[1][1]==segno)&&(m[2][2]==segno))
+    return true;
+    else if((m[0][2]==segno)&&(m[1][1]==segno)&&(m[2][0]==segno))
+    return true;
+    else 
+    return false;
+    
+}
